@@ -47,7 +47,7 @@ async def ping(ctx: lightbulb.Context) -> None:
     "update",
     "executes a git pull before killing the bot, the restart should be handled by a process manager",
 )
-@lightbulb.implements(lightbulb.PrefixSubCommand)
+@lightbulb.implements(lightbulb.PrefixCommand)
 async def update_git_backup(ctx: lightbulb.Context) -> None:
 
     
@@ -82,7 +82,7 @@ async def update_git_backup(ctx: lightbulb.Context) -> None:
 @bot.command()
 @lightbulb.add_checks(lightbulb.owner_only)
 @lightbulb.command("restart", "restarts the bot")
-@lightbulb.implements(lightbulb.PrefixSubCommand)
+@lightbulb.implements(lightbulb.PrefixCommand)
 async def restart(ctx: lightbulb.Context) -> None:
     await ctx.respond("Attempting to restart.")
     await ctx.bot.close()
