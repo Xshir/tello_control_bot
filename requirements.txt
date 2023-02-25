@@ -1,0 +1,6 @@
+hikari
+hikari-lightbulb==2.2.4
+hikari-miru @ git+https://github.com/HyperGH/hikari-miru@25d0f46ef8f326cee75f0da9495fd3d02d1212c0
+git+https://github.com/Rapptz/asqlite
+git+https://github.com/tandemdude/lightbulb-ext-filament
+asyncpg
