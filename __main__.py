@@ -41,4 +41,51 @@ async def startup_function(event: hikari.StartedEvent) -> None:
 async def ping(ctx: lightbulb.Context) -> None:
     await ctx.respond(f"Pong! @ {bot.heartbeat_latency*1000}ms")
 
+@bot.command()
+@lightbulb.add_checks(lightbulb.owner_only)
+@lightbulb.command(
+    "update",
+    "executes a git pull before killing the bot, the restart should be handled by a process manager",
+)
+@lightbulb.implements(lightbulb.PrefixSubCommand)
+async def update_git_backup(ctx: lightbulb.Context) -> None:
+
+    
+    RET = f"```bash\ngit pull https://github.com/Xshir/tello_control_bot\n```"
+
+    async def run(cmd):
+        ret_stdout_ = "```\n**[stdout]**\nNO STDOUT\n```"
+        ret_stderr_ = "```\n**[stderr]**\nNO STDERR\n```"
+        proc = await asyncio.create_subprocess_shell(
+            cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+        )
+
+        stdout, stderr = await proc.communicate()
+        
+
+        if stdout:
+            ret_stdout_ = f"```\n**[stdout]**\n{stdout.decode()}\n```"
+            
+        if stderr:
+            ret_stderr_ = f"```\n**[stderr]**\n{stderr.decode()}\n```"
+        
+        tup = ('Bot App will restart now.', ret_stdout_, ret_stderr_)
+        return tup
+
+    tup_ = await run(RET)
+    desc = "\n".join((tup_[1], tup_[2]))
+    embed = hikari.Embed(title=tup_[0], description=desc, colour=(250, 250, 250))
+    await ctx.respond(embed)
+
+    await ctx.bot.close()
+
+@bot.command()
+@lightbulb.add_checks(lightbulb.owner_only)
+@lightbulb.command("restart", "restarts the bot")
+@lightbulb.implements(lightbulb.PrefixSubCommand)
+async def restart(ctx: lightbulb.Context) -> None:
+    await ctx.respond("Attempting to restart.")
+    await ctx.bot.close()
+    await ctx.respond("Attempt failed.")
+
 bot.run()
