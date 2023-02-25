@@ -1,5 +1,6 @@
 import lightbulb
 import hikari
+import miru
 import asyncio
 import asyncpg
 from credentials import bot_creds
@@ -12,6 +13,7 @@ class OverriddenBot(lightbulb.BotApp):
         super().__init__(token=bot_creds["TOKEN"], prefix="!", intents=hikari.Intents.ALL)
 
 bot = OverriddenBot()
+miru.load(bot)
 
 @bot.listen()
 async def startup_function(event: hikari.StartedEvent) -> None:
