@@ -18,7 +18,7 @@ miru.load(bot)
 @bot.listen()
 async def startup_function(event: hikari.StartedEvent) -> None:
     persistent_views = [
-    BaseView
+    BaseView()
     ]
 
     for view in persistent_views:
