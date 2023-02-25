@@ -41,4 +41,4 @@ class BaseView(miru.View):
         for k, v in modal.values.items():
             responses.append(v) #responses[0] is 1st text input, responses[1] is 2nd text input etc etc
         
-        await ctx.respond(f"{responses[0]}") # sends response(s) to discord via ephemeral (self.state)
+        await ctx.respond(f"{responses[0]}", flags=self.state) # sends response(s) to discord via ephemeral (self.state)
