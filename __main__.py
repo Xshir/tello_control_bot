@@ -80,6 +80,28 @@ async def update_git_backup(ctx: lightbulb.Context) -> None:
     await ctx.bot.close()
 
 @bot.command()
+@lightbulb.add_checks(
+    lightbulb.checks.has_guild_permissions(hikari.Permissions.ADMINISTRATOR)
+    | lightbulb.owner_only
+)
+@lightbulb.command("console", "Tello Control Console")
+@lightbulb.implements(lightbulb.PrefixCommand)
+async def prefix_setter(ctx: lightbulb.Context) -> None:
+    view = BaseView() # view obj
+
+    response = await ctx.respond(
+        embed=hikari.Embed(
+            description=
+                f"Embed"
+            ,
+            colour=(255, 255, 255),
+        ),
+        components=view.build(),
+    )
+    await view.start(await response.message())
+    await view.wait()
+
+@bot.command()
 @lightbulb.add_checks(lightbulb.owner_only)
 @lightbulb.command("restart", "restarts the bot")
 @lightbulb.implements(lightbulb.PrefixCommand)

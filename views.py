@@ -8,12 +8,12 @@ class BaseView(miru.View):
 
 
     @miru.button(label="MODAL1", style=hikari.ButtonStyle.SECONDARY, custom_id="id_1")
-    async def information(self, button: miru.Button, ctx: miru.ViewContext):
+    async def func_one(self, button: miru.Button, ctx: miru.ViewContext):
         STRING = "Test String"
         await ctx.respond(STRING, flags=self.state)
 
     @miru.button(label="MODAL2", style=hikari.ButtonStyle.SECONDARY, custom_id="id_2")
-    async def booking(self, button: miru.Button, ctx: miru.ViewContext):
+    async def func_two(self, button: miru.Button, ctx: miru.ViewContext):
         modal = miru.Modal(title="MODAL TITLE", timeout=None) # modal object
 
         # input objects
