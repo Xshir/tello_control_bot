@@ -42,3 +42,25 @@ class BaseView(miru.View):
             responses.append(v) #responses[0] is 1st text input, responses[1] is 2nd text input etc etc
         
         await ctx.respond(f"{responses[0]}", flags=self.state) # sends response(s) to discord via ephemeral (self.state)
+    
+    @miru.button(label="MODAL3", style=hikari.ButtonStyle.SECONDARY, custom_id="id_3")
+    async def func_two(self, button: miru.Button, ctx: miru.ViewContext):
+        modal = miru.Modal(title="MODAL TITLE", timeout=None) # modal object
+
+        # input objects
+        TEXTINPUT_1 = miru.TextInput(
+            label="TEXT 1 LABEL",
+            required=True
+        )
+        # add input objects to modal object
+        modal.add_item(TEXTINPUT_1)
+    
+
+        # sends the modal after button click
+        await ctx.respond_with_modal(modal)
+        await modal.wait() # waits for a resp
+        responses = []
+        for k, v in modal.values.items():
+            responses.append(v) #responses[0] is 1st text input, responses[1] is 2nd text input etc etc
+        
+        await ctx.respond(f"{responses[0]}", flags=self.state) # sends response(s) to discord via ephemeral (self.state)
