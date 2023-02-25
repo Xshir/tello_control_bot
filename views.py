@@ -44,7 +44,7 @@ class BaseView(miru.View):
         await ctx.respond(f"{responses[0]}", flags=self.state) # sends response(s) to discord via ephemeral (self.state)
     
     @miru.button(label="MODAL3", style=hikari.ButtonStyle.SECONDARY, custom_id="id_3")
-    async def func_two(self, button: miru.Button, ctx: miru.ViewContext):
+    async def func_three(self, button: miru.Button, ctx: miru.ViewContext):
         modal = miru.Modal(title="MODAL TITLE", timeout=None) # modal object
 
         # input objects
