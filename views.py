@@ -10,7 +10,7 @@ class BaseView(miru.View):
 
     @miru.button(label="tello0", style=hikari.ButtonStyle.SECONDARY, custom_id="id_0")
     async def tello0(self, button: miru.Button, ctx: miru.ViewContext):
-        STRING = retrieve_tello_instructions_in_list(ctx.bot.d.pool, "tello0")
+        STRING = await retrieve_tello_instructions_in_list(ctx.bot.d.pool, "tello0")
         await ctx.respond(STRING, flags=self.state)
 
     @miru.button(label="tello1", style=hikari.ButtonStyle.SECONDARY, custom_id="id_1")
