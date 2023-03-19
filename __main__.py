@@ -3,7 +3,7 @@ import hikari
 import miru
 import asyncio
 import asyncpg
-from credentials import bot_creds
+from credentials import bot_creds, db_creds
 from views import BaseView
 #from lightbulb.ext import tasks
 
@@ -31,7 +31,7 @@ async def startup_function(event: hikari.StartedEvent) -> None:
 
     try:
         bot.d.pool = await asyncpg.create_pool(
-        "postgres://postgres:xwb_con_^^_203@database:5432/postgres"
+        f"postgres://{db_creds['user']}:{db_creds['password']}@{db_creds['host']}:{db_creds['port']}/{db_creds['database']}"
     )
         print("POSTGRESQL connected = ", bot.d.pool)
     except Exception as e:
