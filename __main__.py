@@ -18,6 +18,7 @@ miru.load(bot)
 #tasks.load(bot)
 
 
+
 @bot.listen()
 async def startup_function(event: hikari.StartedEvent) -> None:
     persistent_views = [
