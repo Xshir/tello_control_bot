@@ -5,6 +5,7 @@ import asyncio
 import asyncpg
 from credentials import bot_creds
 from views import BaseView
+#from lightbulb.ext import tasks
 
 
 class OverriddenBot(lightbulb.BotApp):
@@ -14,6 +15,8 @@ class OverriddenBot(lightbulb.BotApp):
 
 bot = OverriddenBot()
 miru.load(bot)
+#tasks.load(bot)
+
 
 @bot.listen()
 async def startup_function(event: hikari.StartedEvent) -> None:
