@@ -31,7 +31,7 @@ async def retrieve_tello_instructions_in_list(pool, tello: str) -> list:
             await conn.close()
             for column in records:
                 if column[tello] is not None:
-                    if ":" not in column[tello]:
+                    if ":" not in column[tello] and "NOT SET" not in column[tello]:
                         list_of_instructions.append(column[tello])
 
             
