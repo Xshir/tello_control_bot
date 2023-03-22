@@ -22,7 +22,7 @@ class BaseView(miru.View):
                 em = []
                 for row in rec:
                       em.append(row[1])
-                await ctx.respond(em, flags=self.state)
+                await ctx.respond(em[0], flags=self.state)
                 await conn.close()
 
     @miru.button(label="START ALL", style=hikari.ButtonStyle.SECONDARY, custom_id="start_all")
