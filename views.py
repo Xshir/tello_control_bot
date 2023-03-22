@@ -7,6 +7,36 @@ class BaseView(miru.View):
         super().__init__(timeout=None)
         self.state = hikari.MessageFlag.EPHEMERAL
 
+    @miru.button(label="START ALL", style=hikari.ButtonStyle.SECONDARY, custom_id="start_all")
+    async def start_all_tellos(self, button: miru.Button, ctx: miru.ViewContext):
+            pool = ctx.bot.d.pool
+
+            tellos = []
+
+            for _ in range(0, 10):
+                tellos.append(f"tello{_}")
+
+            async with pool.acquire() as conn:
+                for tello in tellos:
+                        await conn.execute(f"UPDATE tello_table SET {tello} = 'NOW' WHERE key = 500;")
+                await conn.close()
+                
+    
+    @miru.button(label="RESET ALL", style=hikari.ButtonStyle.SECONDARY, custom_id="reset_all")
+    async def reset_all_tellos(self, button: miru.Button, ctx: miru.ViewContext):
+            pool = ctx.bot.d.pool
+
+            tellos = []
+
+            for _ in range(0, 10):
+                tellos.append(f"tello{_}")
+
+            async with pool.acquire() as conn:
+                for tello in tellos:
+                        await conn.execute(f"UPDATE tello_table SET {tello} = 'NOT SET' WHERE key = 500;")
+                await conn.close()
+                
+        
 
     @miru.button(label="tello0", style=hikari.ButtonStyle.SECONDARY, custom_id="id_0")
     async def tello0(self, button: miru.Button, ctx: miru.ViewContext):
