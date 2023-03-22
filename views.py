@@ -19,6 +19,7 @@ class BaseView(miru.View):
             async with pool.acquire() as conn:
                 for tello in tellos:
                         await conn.execute(f"UPDATE tello_table SET {tello} = 'NOW' WHERE key = 500;")
+                        await ctx.respond("Done", flags=self.state)
                 await conn.close()
                 
     
@@ -34,6 +35,7 @@ class BaseView(miru.View):
             async with pool.acquire() as conn:
                 for tello in tellos:
                         await conn.execute(f"UPDATE tello_table SET {tello} = 'NOT SET' WHERE key = 500;")
+                        await ctx.respond("Done", flags=self.state)
                 await conn.close()
                 
         
