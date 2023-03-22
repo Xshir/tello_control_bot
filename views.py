@@ -7,6 +7,24 @@ class BaseView(miru.View):
         super().__init__(timeout=None)
         self.state = hikari.MessageFlag.EPHEMERAL
 
+    @miru.button(label="START STATUS", style=hikari.ButtonStyle.SECONDARY, custom_id="start_stat")
+    async def start_stat(self, button: miru.Button, ctx: miru.ViewContext):
+            pool = ctx.bot.d.pool
+
+            tellos = []
+
+            for _ in range(0, 10):
+                tellos.append(f"tello{_}")
+
+            async with pool.acquire() as conn:
+                
+                rec = await conn.fetch(f"SELECT * FROM tello_table WHERE key = 500")
+                em = []
+                for row in rec:
+                      em.append(row[1])
+                await ctx.respond(em, flags=self.state)
+                await conn.close()
+
     @miru.button(label="START ALL", style=hikari.ButtonStyle.SECONDARY, custom_id="start_all")
     async def start_all_tellos(self, button: miru.Button, ctx: miru.ViewContext):
             pool = ctx.bot.d.pool
@@ -19,7 +37,7 @@ class BaseView(miru.View):
             async with pool.acquire() as conn:
                 for tello in tellos:
                         await conn.execute(f"UPDATE tello_table SET {tello} = 'NOW' WHERE key = 500;")
-                        await ctx.respond("Done", flags=self.state)
+                await ctx.respond("Done", flags=self.state)
                 await conn.close()
                 
     
@@ -35,7 +53,7 @@ class BaseView(miru.View):
             async with pool.acquire() as conn:
                 for tello in tellos:
                         await conn.execute(f"UPDATE tello_table SET {tello} = 'NOT SET' WHERE key = 500;")
-                        await ctx.respond("Done", flags=self.state)
+                await ctx.respond("Done", flags=self.state)
                 await conn.close()
                 
         
